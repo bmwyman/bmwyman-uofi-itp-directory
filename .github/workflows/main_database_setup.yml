@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - bmwyman-itp-directory-infra-winapp01
+name: Run database EF for database setup
 
 on:
   push:
@@ -29,6 +29,6 @@ jobs:
         run: |
              dotnet tool install --global dotnet-ef
              dotnet tool restore
-             dotnet ef database update -c "Server=${{ secrets.DATABASE_SERVER }};Initial Catalog=uofi-itp-directory-database;Persist Security Info=False;User ID=api_admin;Password=${{ secrets.DATABASE_PASSWORD }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" -s uofi-itp-directory -p uofi-itp-directory-data
+             dotnet ef database update -c "Server=tcp:bmwyman-itp-sql-server.database.windows.net,1433;Initial Catalog=bmwyman-uofi-itp-directory-database;Persist Security Info=False;User ID=api_admin;Password=${{ secrets.AZURE_SQL_SERVER_ADMIN_PW }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" -s uofi-itp-directory -p uofi-itp-directory-data
         env:
              ASPNETCORE_ENVIRONMENT: Development
