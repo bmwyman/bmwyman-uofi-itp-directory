@@ -1,7 +1,9 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 #              dotnet ef database update --connection "Server=tcp:bmwyman-itp-sql-server.database.windows.net,1433;Initial Catalog=bmwyman-uofi-itp-directory-database;Persist Security Info=False;User ID=api_admin;Password=${{ secrets.AZURE_SQL_SERVER_ADMIN_PW }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" -s uofi-itp-directory -p uofi-itp-directory-data
-
+#
+# - name: Build with dotnet
+#   run: dotnet build --configuration Release
 
 name: Run database EF for database setup
 
@@ -18,14 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Display version install
+        run: echo "Database ${{ secrets.AZURE_SQL_SERVER_CON_STRING }}"
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '8.x'
           include-prerelease: true
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
 
       - name: Update database
         run: |
